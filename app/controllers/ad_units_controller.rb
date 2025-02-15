@@ -1,0 +1,2 @@
+class AdUnitsController < ApplicationController
+end
