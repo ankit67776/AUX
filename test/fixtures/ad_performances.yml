@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ad_implementation: one
+  impressions: 1
+  clicks: 1
+  revenue: 9.99
+  date: 2025-02-10
+
+two:
+  ad_implementation: two
+  impressions: 1
+  clicks: 1
+  revenue: 9.99
+  date: 2025-02-10

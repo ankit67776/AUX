@@ -1,0 +1,2 @@
+class AdPerformancesController < ApplicationController
+end
