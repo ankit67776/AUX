@@ -2,10 +2,9 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  # config.hosts << "f0e4-103-83-8-19.ngrok-free.app"
   # Make code changes take effect immediately without server restart.
-  config.enable_reloading = true
-
+  config.enable_reloadiaction_controllerng = true
   # Do not eager load code on boot.
   config.eager_load = false
 
@@ -25,7 +24,7 @@ Rails.application.configure do
     config.action_controller.enable_fragment_cache_logging = true
     config.public_file_server.headers = { "cache-control" => "public, max-age=#{2.days.to_i}" }
   else
-    config.action_controller.perform_caching = false
+    config..perform_caching = false
   end
 
   # Change to :null_store to avoid any caching.

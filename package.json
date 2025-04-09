@@ -1,9 +1,9 @@
 {
   "dependencies": {
     "rails_admin": "3.3.0",
-    "sass": "^1.84.0"
+    "sass": "^1.85.1"
   },
   "scripts": {
-    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/as  sets/builds/application.css --no-source-map --load-path=node_modules"
+    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   }
 }

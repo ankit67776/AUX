@@ -1,23 +1,41 @@
 Rails.application.routes.draw do
-  devise_for :users
-  mount RailsAdmin::Engine => "/admin", as: "rails_admin"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Custom routes for login/logout
+  devise_scope :user do
+    post "login", to: "users/sessions#create"
+    delete "logout", to: "users/sessions#destroy"
+
+    # Google OAuth
+    get "/users/auth/google_oauth2", to: "users/omniauth_callbacks#google_oauth2"
+    get "/users/auth/google_oauth2/callback", to: "users/omniauth_callbacks#google_oauth2"
+  end
+
+  namespace :advertisers do
+    resources :ad_units, only: [ :create ]
+  end
+
+  namespace :api do
+    post "auth/google", to: "auth#google"
+  end
+
+  mount RailsAdmin::Engine => "/admin", as: "rails_admin"
+
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
-  # root "posts#index"
   resources :users
-  resources :advertisers
+  resources :advertisers, only: [ :create ]
   resources :publishers
   resources :ad_units
   resources :publisher_sites
   resources :ad_implementations
   resources :ad_performances
+
+  resources :advertisers do
+    resources :ad_units
+  end
+
+  get "/google_ads", to: "google_ads#index"
+
+  # config/routes.rb
 end

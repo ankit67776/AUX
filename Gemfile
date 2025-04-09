@@ -3,7 +3,6 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails_admin", "~> 3.0"
 gem "rails", "~> 8.0.1"
-gem "devise"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use sqlite3 as the database for Active Record
@@ -66,3 +65,24 @@ group :test do
 end
 gem "cssbundling-rails"
 gem "sassc-rails"
+
+gem "devise-jwt", "~> 0.12.1"
+
+gem "tailwindcss-ruby", "~> 4.0"
+
+gem "tailwindcss-rails", "~> 4.1"
+gem "cssbundling-rails"
+gem "rspec-rails"
+
+gem "rack-cors", "~> 2.0"
+
+gem "omniauth-google-oauth2", "~> 1.2"
+
+gem "dotenv-rails", groups: [ :development, :test ]
+
+gem "omniauth-rails_csrf_protection"
+
+gem "devise", "~> 4.9"
+
+gem "google-ads-googleads", "~> 32.0"
+gem "google-id-token"
