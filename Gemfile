@@ -84,5 +84,5 @@ gem "omniauth-rails_csrf_protection"
 
 gem "devise", "~> 4.9"
 
-gem "google-ads-googleads", "~> 32.0"
+gem "google-ads-googleads", "~> 33.0"
 gem "google-id-token"
