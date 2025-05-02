@@ -21,6 +21,7 @@ Devise.setup do |config|
   # config.parent_controller = 'DeviseController'
   config.skip_session_storage = [ :http_auth, :params_auth ]
   config.omniauth_path_prefix = "/users/auth"
+  config.navigational_formats = []
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -315,4 +316,18 @@ Devise.setup do |config|
 
   config.omniauth :google_oauth2, ENV["GOOGLE_OAUTH_CLIENT_ID"], ENV["GOOGLE_OAUTH_CLIENT_SECRET"],
                 scope: "email,profile"
+
+  config.jwt do |jwt|
+    jwt.secret = Rails.application.credentials.devise_jwt_secret_key!
+    jwt.dispatch_requests = [
+      [ "POST", %r{^/users/sign_in$} ],
+      [ "POST", %r{^/users/auth/google_oauth2/callback$} ]
+    ]
+    jwt.revocation_requests = [
+      [ "DELETE", %r{^/users/sign_out$} ]
+    ]
+    jwt.request_formats = {
+      user: [ :json ]
+    }
+  end
 end

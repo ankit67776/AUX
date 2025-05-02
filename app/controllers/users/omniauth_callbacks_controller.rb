@@ -1,33 +1,22 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  skip_before_action :verify_authenticity_token, only: [ :google_oauth2 ]
-
-  def passthru
-    Rails.logger.debug ">>> Passthru called! Redirecting manually."
-    redirect_to user_google_oauth2_omniauth_authorize_path
-  end
-
   def google_oauth2
-    Rails.logger.debug ">>> OmniAuth Auth Hash: #{request.env['omniauth.auth'].inspect}"
+    @user = User.from_omniauth(request.env["omniauth.auth"])
 
-    auth = request.env["omniauth.auth"]
+    if @user.persisted?
+      sign_in @user
+      token = Warden::JWTAuth::UserEncoder.new.call(@user, :user, nil).first
 
-    if auth.blank?
-      Rails.logger.debug ">>> AUTH HASH IS EMPTY! OmniAuth isn't working correctly."
-      redirect_to new_user_registration_url, alert: "Google authentication failed"
-      return
-    end
-
-    user = User.from_omniauth(auth)
-
-    if user.persisted?
-      Rails.logger.debug ">>> User found: #{user.inspect}"
-      sign_in(user)
-
-      # ✅ Manually redirect to Next.js frontend
-      redirect_to "http://localhost:3001/advertiser/ads"
+      render json: {
+        message: "Logged in with Google!",
+        token: token,
+        user: {
+          id: @user.id,
+          name: @user.name,
+          email: @user.email
+        }
+      }
     else
-      Rails.logger.debug ">>> User creation failed"
-      redirect_to new_user_registration_url, alert: "Google authentication failed"
+      redirect_to new_user_registration_url
     end
   end
 end

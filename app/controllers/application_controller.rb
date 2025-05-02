@@ -1,14 +1,13 @@
-class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+class ApplicationController < ActionController::API
+  include ActionController::Helpers
+  include ActionController::Flash
+  rescue_from ActionController::InvalidAuthenticityToken, with: :invalid_token
 
-  protect_from_forgery with: :null_session
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  respond_to :json
 
   private
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [ :name, :role, :admin ])
-    devise_parameter_sanitizer.permit(:account_update, keys: [ :name, :role, :admin ])
+  def invalid_token
+    render json: { error: "Invalid or missing token" }, status: :unauthorized
   end
 end
