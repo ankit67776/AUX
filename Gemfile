@@ -70,7 +70,7 @@ gem "devise-jwt", "~> 0.12.1"
 
 gem "tailwindcss-ruby", "~> 4.0"
 
-gem "tailwindcss-rails", "~> 4.1"
+gem "tailwindcss-rails", "~> 4.2"
 gem "cssbundling-rails"
 gem "rspec-rails"
 
