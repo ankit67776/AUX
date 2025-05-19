@@ -74,7 +74,7 @@ gem "tailwindcss-rails", "~> 4.1"
 gem "cssbundling-rails"
 gem "rspec-rails"
 
-gem "rack-cors", "~> 2.0"
+gem "rack-cors", "~> 3.0"
 
 gem "omniauth-google-oauth2", "~> 1.2"
 
